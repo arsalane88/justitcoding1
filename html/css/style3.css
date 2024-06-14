@@ -1,0 +1,108 @@
+header{
+    background-color: green;
+    color: red;
+    font-size: 30px;
+    position: sticky;
+}
+
+header a{
+    color: red;
+    text-decoration: none;
+}
+
+header a:hover{
+    color: blue;
+    background-color: tomato;
+    border-radius: 5%;
+}
+
+span{
+    display: inline-block;
+    width: 200px;
+}
+
+h1{
+    display: inline;
+    margin-left: 25%;
+}
+
+nav{
+    display: inline;
+    margin-left: 25%;
+}
+
+#submenu{
+    position:fixed;
+    right:8px;
+    background-color: green;
+    width: 250px;
+}
+ 
+#submenu a{
+    color: red;
+    text-decoration: none;
+    font-size: 12px;
+    margin-left: 1%;
+}
+ 
+#submenu a:hover{
+    background-color: tomato;
+    color: blue;
+    border-radius: 5%;
+}
+
+:root {
+    --green: green;
+    --red: red;
+    --margin: 10px;
+    --padding: 10px;
+    --sandstorm:
+    --complex: 10px 50px green;
+}
+
+.euros {
+    background-color: var(--green);
+    color: var(--red);
+    margin: var(--margin);
+    padding: var(--padding);
+    border: var(--red) 10px solid;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap to the next row */
+    justify-content: space-between; /* Distribute space between cards */
+    max-width: 800px; /* Adjust as needed */
+    margin: 0 auto; /* Center the container horizontally */
+}
+
+
+/* Style the individual cards */
+.card {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
+    flex: 1 0 calc(33.33% - 20px); /* Calculate width for three cards per row */
+    min-width: 250px; /* Minimum card width */
+    max-width: 350px; /* Maximum card width */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Style card content */
+.card h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    flex-grow: 1;
+    margin-bottom: 10px;
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: 15% 15% 15% 15% 15% 15%;
+    grid-template-rows: 15% 15% 15% 15% 15% 15%;
+}
