@@ -1,0 +1,9 @@
+$(document).ready(function(){
+    $('.sidenav').sidenav(
+        {
+            edge:"right",
+            inDuration:150,
+            preventScrolling:false
+        }
+    );
+  });
