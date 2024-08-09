@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="portfolio.css">
+    <script src="portfolio.js" defer></script>
+    <title>AM Portfolio</title>
+    <p style="background-image: url('https://www.shutterstock.com/image-illustration/programming-code-abstract-technology-background-600nw-1887170134.jpg');"></p>
+</head>
+<body>
+    <header>
+        <h1>Software Development Portfolio</h1>
+        <p>Arsalane Melaine</p>
+    </header>
+    <div id="about">
+        <h2>About Me</h2>
+        <p>A little bit about my life so far.</p>
+    </div>
+    <div id="projects">
+        <h2>My Projects</h2>
+        <div class="flexbox">
+            <div id="project1"></div>
+            <div>Project 2</div>
+            <div>Project 3</div>
+        </div>
+    </div>
+    <footer id="footer">
+        <div class="container">
+            <h3>Leave a Message</h3>
+            <form id="messageForm">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" name="firstname" placeholder="Your first name...">
+                <label for="sname">Surname</label>
+                <input type="text" id="sname" name="surname" placeholder="Your surname...">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Your message..." style="height:100px"></textarea>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </footer>
+</body>
+</html>

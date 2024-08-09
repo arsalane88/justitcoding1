@@ -1,0 +1,80 @@
+header {
+  position: sticky;
+  top: 0;
+  background-color: rgba(151, 216, 145, 0.8);
+  margin: 2%;
+  text-align: center;
+  z-index: 1000;
+}
+
+body {
+  background-image: url("https://www.shutterstock.com/image-illustration/programming-code-abstract-technology-background-600nw-1887170134.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.flexbox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: #45a049;
+}
+
+.flexbox > div {
+  background-color: red;
+  width: 250px;
+  height: 300px;
+  margin: 10px;
+  text-align: center;
+  line-height: 275px;
+  font-size: 30px;
+}
+
+#project1 img {
+  width: 100%;
+  height: 100%;
+}
+
+input[type="text"], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type="submit"] {
+  background-color: black;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #0b0b0c;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #45a049;
+  padding: 15px;
+  margin-left: 90px;
+  margin-right: 90px;
+  margin-top: 15px;
+}

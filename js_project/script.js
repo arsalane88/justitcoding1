@@ -8,7 +8,7 @@ const backgroundCol = "yellow";
 const snakeCol = "blue";
 const snakeBrdr = "white";
 const foodCol = "green"; //elements given colour value
-const unitSize = 30; //value in px
+const unitSize = 20; //value in px
 
 let onrun = false;
 let score = 0;
@@ -16,7 +16,6 @@ let xVelocity = unitSize; //how far snake moves right in relation to every below
 let yVelocity = 0; //not moving up or down at start
 let foodX;
 let foodY; //coordinates calculated randomly below
-let obstacles = []; // initiated as an array.
 let snake = [
     {x:unitSize * 2, y:0}, //each starting body parts coordinates
     {x:unitSize, y:0},
@@ -36,7 +35,6 @@ function start(){
     onrun= true;
     scoreTxt.textContent = score; // score starts at 0
     createFood();
-    createObstacles();
     drawFood();
     update();
 };
@@ -47,11 +45,10 @@ function update(){
             drawFood();
             moveSnake();
             drawSnake();
-            drawObstacles();
             checkGameOver();
             checkHighScore();
             checkLevel();
-            displayLevel(); // New line to display level
+            displayLevel();
 
             update();
     }, speed) // function updates every 100 milliseconds using setTimeout.
@@ -68,16 +65,18 @@ function clearBoard(){
 function createFood() {
     let emptyUnit = false;
     while (!emptyUnit) { // emptyUnit remains false
-        foodX = Math.floor(Math.random() * (boardWidth / unitSize)) * unitSize; // ((Math.random returns number between 0-1) * bW or bH(600) / uS(30)) * uS ->(becomes) (599.9999) Math.floor rounds down so ->(becomes) (599)
-        foodY = Math.floor(Math.random() * (boardHeight / unitSize)) * unitSize;  //allows food to appear in random coordinate on board, and after eaten
+        // Generate random coordinates for the food
+        const newFoodX = Math.floor(Math.random() * (boardWidth / unitSize)) * unitSize; // ((Math.random returns number between 0-1) * bW or bH(400) / uS(20)) * uS ->(becomes) (399.9999) Math.floor rounds down so ->(becomes) (99)
+        const newFoodY = Math.floor(Math.random() * (boardHeight / unitSize)) * unitSize; //allows food to appear in random coordinate on board, and after eaten.
 
-        // checking if the food coordinates overlap with any part of the snake
-        emptyUnit = snake.every(snakePart => snakePart.x !== foodX || snakePart.y !== foodY); // every method iterates through each segment of array [snakePart]
-    
-    if (emptyUnit) {
-            // Food coordinates are valid, exit the loop (emptyUnit = true;)
-            foodX = foodX;
-            foodY = foodY; // food will not only regenerate in an empty unity.
+        // Check if the new food coordinates overlap with any part of the snake or obstacles
+        const snakeOverlap = snake.some(snakePart => snakePart.x === newFoodX && snakePart.y === newFoodY);  // some method iterates through each segment of the arrays [snakePart], [obstacle], using their x and y coordinates to locate them and check them against the newFood coordinates.
+
+        if (!snakeOverlap) {
+            // if food coordinates are valid, exit the loop.
+            foodX = newFoodX;
+            foodY = newFoodY;
+            emptyUnit = true; // food will only regenerate in an empty unity.
         }
     }
 }
@@ -87,24 +86,6 @@ function drawFood(){
     //when drawFood is invoked after createFood, foods coordinates are randomly generated after every refresh.
 
 };
-// Function to create random obstacles
-function createObstacles() {
-        const obstacleSize = Math.floor(Math.random() * (level + 1)) + 1; // new obstacles added every level up
-        const obstacleX = Math.floor(Math.random() * (boardWidth / unitSize)) * unitSize;
-        const obstacleY = Math.floor(Math.random() * (boardHeight / unitSize)) * unitSize; // coordinates of newly generated obstacles calculated to be anywere on the board (similar to food)
-        // check if obstacles overlap with snake or food
-        const overlapping = snake.some(part => part.x === obstacleX && part.y === obstacleY) ||
-            (foodX === obstacleX && foodY === obstacleY);
-    if (!overlapping) {
-            obstacles.push({ x: obstacleX, y: obstacleY, size: obstacleSize }); // obstacles will not overlap with snake or food.
-    }
-}
-function drawObstacles() {
-    context.fillStyle = "black";
-    obstacles.forEach(obstacle => { // iterates through each obstacle unit in the array using forEach method
-        context.fillRect(obstacle.x, obstacle.y, obstacle.size * unitSize, unitSize); // fillRect colours each obstacle with above fillStyle using (x & y coordinates, width and hight).
-    });
-}
 function moveSnake(){
     const newHead = {x: snake[0].x + xVelocity,
                   y: snake[0].y + yVelocity}; // newHead is created in relation to position of current head and direction of travel
@@ -161,7 +142,6 @@ function checkLevel() {
     if (score % 7 === 0 && score > 1 && !actionTaken) {
         level++; // Increase level by 1
         speed -= 7; // Decrease speed by 7 milliseconds (increasing speed of snake)
-        createObstacles(); // function reinvoked every level up creating more obstacles.
         actionTaken = true; // Action has been taken
     }
     else if (score % 7 !== 0) {
@@ -173,18 +153,11 @@ function checkLevel() {
 }
 function displayLevel() {
     context.textAlign = "center";
-    context.font = "30px Segoe UI"; // Adjust font size as needed
+    context.font = "20px Segoe UI"; // Adjust font size as needed
     context.fillStyle = "darkred"; // Choose a color for the level display
     context.fillText(`Level: ${level}`, boardWidth / 2, 30); // Display level at the top
 }
 function checkGameOver(){
-    const head = snake[0]; // head of snake stored as first unit in array
-        obstacles.forEach(obstacle => {
-    // the if statement is checking whether the snakes head comes in to contact with all elements in obstacles array, using forEach method.
-    if (head.x < obstacle.x + obstacle.size && head.x + unitSize > obstacle.x && head.y < obstacle.y + obstacle.size && head.y + unitSize > obstacle.y){
-        onrun = false; // Game over if snake collides with obstacle
-    }
-})
     if (snake[0].x < 0 || snake[0].x >= boardWidth || snake[0].y < 0 || snake[0].y >= boardHeight) {
         onrun = false; //out of bounds game over condition set
     }
@@ -196,7 +169,7 @@ function checkGameOver(){
 };
 function displayGameOver(){
     context.textAlign = "center";
-    context.font = "60px Segoe UI";
+    context.font = "50px Segoe UI";
     context.fillStyle = "red";
     context.fillText("You Are Dead!!!", boardWidth / 2, boardHeight / 2);
     onrun = false; //game over message displayed given css and snake will stop moving
@@ -207,7 +180,6 @@ function rstGame(){
     speed = 100;
     xVelocity = unitSize;
     yVelocity = 0;
-    obstacles = [];
     snake = [
         {x:unitSize * 2, y:0},
         {x:unitSize, y:0},
